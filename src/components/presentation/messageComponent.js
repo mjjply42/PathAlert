@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useRef} from 'react';
 import PropTypes from 'prop-types';
 
 export const Message = (props) => {
+    const spanRef = useRef()
     return (
         <div style={styles.messageContainer}>
             <div>
                 <p style={styles.alertBlock}>Alert:</p>
             </div>
-                <span 
-                        style={styles.messageAlert} contentEditable="true">{props.message}</span>
-                <input type="submit" value="Update"></input>
+                <span ref={spanRef} style={styles.messageAlert} 
+                        contentEditable="true">{props.message}</span>
+                <input onClick={()=>{props.messageChange(spanRef.current.innerHTML)}} type="submit" value="Update"></input>
         </div>
     )
 }

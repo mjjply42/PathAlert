@@ -9,16 +9,15 @@ import { DomainCheckBox } from '../presentation/CheckComponent.js';
 
 export const SelectedComponent = (props) => {
 
-    const [background, updateBackground] = useState()
+    const [shortURL, updateShortUrl] = useState()
     const [visible, updateSliderVisibility] = useState(false);
     const { site } = props;
 
     useEffect(() => {
-        updateBackground(site.color);
+        shortenUrl(site.path);
     },[]);
 
     const handleSliderMove = (color) => {
-        updateBackground(color.hex);
         props.updateKey(site.id, 'color', color.hex);
         props.updateStat('color', color.hex);
     }
@@ -37,6 +36,22 @@ export const SelectedComponent = (props) => {
 
     const swatchChange = () => {
         updateSliderVisibility(!visible);
+    }
+
+    const shortenUrl = (path) => {
+        let newPath = []
+        let periods = false
+        let splitPath = path.split('');
+        
+        if (splitPath.length > 15)
+            periods = true;
+        splitPath.map((item, index) => {
+            if (index < 15)
+                newPath.push(item);
+        })
+        if (periods)
+            newPath.push('...');
+        updateShortUrl(newPath.join(''));
     }
 
     const styles = {
@@ -61,7 +76,7 @@ export const SelectedComponent = (props) => {
         <>
         <div style={styles.mainContainer}>
             <Swatch background={site.color} swatchChange={swatchChange}/>
-            <Site path={site.path}/>
+            <Site path={shortURL}/>
             <DomainCheckBox domain={site.domain} checkUpdate={checkHandler}/>
         </div>
         {visible ? <div style={styles.sliderContainer}>
@@ -69,6 +84,7 @@ export const SelectedComponent = (props) => {
                 <Slider background={site.color} colorChange={(color) => {handleSliderMove(color)}}/>
                 <Path path={site.path} pathChange={(path) => {handlePath(path)}}/>
                 <Message message={site.message} messageChange={(message) => {handleMessage(message)}}/>
+                <button onClick={()=>{props.removeItem(site.id)}}>REMOVE</button>
             </>
                 </div>: undefined}
         <hr></hr>

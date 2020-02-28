@@ -20,7 +20,7 @@ export const AvailableItems = (props) => {
                                         height: '20%',
                                         display: 'flex',
                                         flexDirection: 'row',}} 
-                            onClick={() => {props.sendSelected(index)}}>
+                            onClick={() => {props.sendSelected(site.id)}}>
                         <p>{site.id}</p>
                         <p>{site.path}</p>
                     </div>
@@ -34,7 +34,7 @@ export const AvailableItems = (props) => {
 const styles = {
     availableContainer: {
         width: '400px',
-        maxHeight: '600px',
+        maxHeight: '400px',
         overflowY: 'scroll',
         overflowX: 'hidden',
     },

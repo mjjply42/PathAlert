@@ -7,6 +7,15 @@
     "default_popup": "index.html",
     "default_title": "Set and Check urls"
   },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": []
+    }
+  ],
   "content_security_policy": "script-src 'self' 'sha256-ilSOplqcd3s+b/3NKbgc1EKX4Ju6Lkauur6HXCOS+Oc='; object-src 'self'",
   "permissions": ["storage"]
 

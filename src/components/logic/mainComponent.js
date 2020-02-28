@@ -11,14 +11,14 @@ export const MainComponent = (props) => {
     useEffect(() => {
         if (props.urls)
             updateURLS(props.urls);
-        console.log("MAIN TRIGGER: ", props.urls)
     },[props.urls])
 
     const selectorUpdate = (id) => {
+        console.log("ID: ", id)
         urls.map((site, index) => {
             if (id === site.id)
                 updateSelected(site);
-        })
+        });
     }
 
     const selectedUpdate = (key, value) => {
@@ -26,17 +26,23 @@ export const MainComponent = (props) => {
         newURLState[key] = value;
         updateSelected(newURLState);
         props.updateSiteItem(selected.id, key, value);
-        //save new state to localStorage
+    }
+
+    const updateRemoval = () => {
+        props.removeItem(selected.id);
+        updateSelected(false);
     }
 
     return (
         <>
-            {urls ? <div style={styles.appContainer}>
+            <div style={styles.appContainer}>
                 {!selected ? <h1>Select a URL</h1>:undefined}
                 {selected ? <SelectedComponent site={ selected } updateStat={selectedUpdate} 
-                                            updateKey={props.updateSiteItem}/>:undefined}
+                                updateKey={props.updateSiteItem} 
+                                removeItem={updateRemoval}/>:undefined}
+                <button onClick={()=>{props.addItem()}}>ADD</button>
                 <AvailableItems selected={selected} urls={urls} sendSelected={selectorUpdate}/>
-            </div>:undefined}
+            </div>
         </>
     )
 }

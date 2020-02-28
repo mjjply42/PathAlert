@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useRef} from 'react';
 import PropTypes from 'prop-types';
 
 export const Path = (props) => {
+    const spanRef = useRef()
     return (
         <div style={styles.pathContainer}>
             <p style={styles.fullPath}>Url:</p>
-            <span onInput={(e)=>{props.pathChange(e.currentTarget.textContent)}} contentEditable="true" style={styles.pathName}>{props.path}</span>
+            <span ref={spanRef} contentEditable="true" style={styles.pathName}>{props.path}</span>
+            <input onClick={()=>{props.pathChange(spanRef.current.innerHTML)}} type="submit" value="Update"></input>
         </div>
     )
 }
