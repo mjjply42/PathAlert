@@ -1,0 +1,13 @@
+{
+  "short_name": "URL Detection",
+  "name": "Website Banner URL detection",
+  "manifest_version": 2,
+  "version": "0.0.1",
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Set and Check urls"
+  },
+  "content_security_policy": "script-src 'self' 'sha256-ilSOplqcd3s+b/3NKbgc1EKX4Ju6Lkauur6HXCOS+Oc='; object-src 'self'",
+  "permissions": ["storage"]
+
+}
